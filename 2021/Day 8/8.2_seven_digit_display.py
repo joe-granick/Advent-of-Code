@@ -21,10 +21,11 @@ print(len(clock))
 print(disp)
 print(len(disp))
 
-segments = {"a": 8, "b": 6, "c": 8, "d": 7, "e": 4, "f": 9, "g": 7}
-digits = {42: "0",  17: "1" , 34: "2", 39: "3", 30: "4", 37: "5", 41 : "6", 25: "7", 49: "8", 45: "9"}
+segments = {"a": 8, "b": 6, "c": 8, "d": 7, "e": 4, "f": 9, "g": 7} #score each letter by frequency of occurence in didgits
+digits = {42: "0",  17: "1" , 34: "2", 39: "3", 30: "4", 37: "5", 41 : "6", 25: "7", 49: "8", 45: "9"} #score of sum of each letter that is on in a sgement
 digit_count = {"zero": 0, "one": 0, "two": 0, "three": 0, "four": 0, "five": 0, "six": 0, "seven": 0, "eight": 0, "nine": 0}
 
+#determine count of letters
 def count_letters(reading):
     segment_count = {"a": 0, "b": 0, "c": 0, "d": 0, "e": 0, "f": 0, "g": 0}
     for segment in reading:
@@ -32,6 +33,7 @@ def count_letters(reading):
             segment_count[letter] += 1
     return segment_count
 
+#score count of letters 
 def score_segment(segment, scores):
     score = 0
     for letter in segment:
@@ -50,8 +52,7 @@ for i in range(len(clock)):
         digit = str(digits[score])
         display_score += digit
         print(display_score)
-        total += int(display_score)
-        print(total)
+    total += int(display_score)
 print(total)
 
 #print(digit_count)
