@@ -4,7 +4,7 @@ from collections import defaultdict
 ####PART 1##########################################
 
 ###############------Import data----------------####
-with open("test_input.txt", "r", encoding="utf-8") as f:
+with open("input.txt", "r", encoding="utf-8") as f:
     lines = f.readlines()
 clock = []
 disp = []
