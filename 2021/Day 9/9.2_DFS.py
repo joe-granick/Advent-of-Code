@@ -62,34 +62,39 @@ def succ(coord):
             next_coord.append((x+action[0], y+action[1]))
     return next_coord
 
-bas = defaultdict(lambda: None)
-def DFS(coord, memo = []):
-    print("Searched Coordinate: ", memo)
 
-    if len(coord) == 0:
-        return memo
-    
-    elif coord[0] in memo:
-        #bas[coord[0]] = memo[:]
-        print("move: ", coord[1:])
-        print(coord)
-        #memo.append(coord[1])
-        return DFS(coord[1:], memo)
-        #return DFS(coord[1:],  memo)
-
+def DFS(vertice, edges):
+    if vertice not in memo: memo.append(vertice)
+    new_edges = succ(vertice)
+    for edge in new_edges:
+        if edge not in memo:
+            edges.append(edge)
+    if edges == []:
+        return memo   
     else:
-        memo.append(coord[0])
-        return DFS(succ(coord[0]), memo) + DFS(coord[1:], memo)
+        vertice = edges.pop(0)
+        return DFS(vertice, edges)
+        
+        
+   
 #print(DFS(low_coord))
 
+
+#print(DFS(low_coord[1], []))
+
+bas = defaultdict(lambda: None)
+
 for coord in low_coord:
-    print(list(coord))
-    bas[coord] = DFS(succ(coord))
+    memo = []
+    bas[coord] = len(DFS(coord, []))
 
-print(bas)
+for k,v in bas.items():
+    print(k, ": ", v)
 
-
-
+tot = 1
+for val in sorted(bas.values(), reverse = True)[:3]:
+    tot *= val
+print(tot)
 
 
 
