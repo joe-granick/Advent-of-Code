@@ -3,7 +3,7 @@
 ###############------Import data----------------####
 from collections import defaultdict
 from os import X_OK
-with open("test_input.txt", "r", encoding="utf-8") as f:
+with open("input.txt", "r", encoding="utf-8") as f:
     lines = f.readlines()
 
 #print(lines)
@@ -13,7 +13,6 @@ end_height = len(lines[0])-1
 print(end_height)
 low_points = []
 low_coord = []
-
 
 def actions(coordinates):
     actions = []
@@ -46,8 +45,8 @@ for i in range(len(lines)):
                 low_points.append(lines[i][h])
                 low_coord.append((h, i))
 
-print(low_points)
-print(low_coord[0])
+#print(low_points)
+print(low_coord)
 total = 0
 for i in low_points:
     total += int(i)+1
@@ -62,39 +61,34 @@ def succ(coord):
             next_coord.append((x+action[0], y+action[1]))
     return next_coord
 
-
 def DFS(vertice, edges):
-    if vertice not in memo: memo.append(vertice)
-    new_edges = succ(vertice)
-    for edge in new_edges:
-        if edge not in memo:
-            edges.append(edge)
-    if edges == []:
-        return memo   
+    #print(memo)
+    if vertice not in memo: 
+        memo.append(vertice)
+        new_edges = succ(vertice)
+        for edge in new_edges:
+            if edge not in memo: edges.append(edge)
+    if edges == []: return memo   
     else:
         vertice = edges.pop(0)
+        #print(vertice, edges)
         return DFS(vertice, edges)
         
-        
-   
-#print(DFS(low_coord))
-
-
-#print(DFS(low_coord[1], []))
-
 bas = defaultdict(lambda: None)
+
 
 for coord in low_coord:
     memo = []
     bas[coord] = len(DFS(coord, []))
 
-for k,v in bas.items():
-    print(k, ": ", v)
 
+for k, v in bas.items():
+    print(k, ": ", v)
 tot = 1
 for val in sorted(bas.values(), reverse = True)[:3]:
     tot *= val
 print(tot)
+
 
 
 
