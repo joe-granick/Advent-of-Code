@@ -6,7 +6,6 @@ from os import X_OK
 with open("input.txt", "r", encoding="utf-8") as f:
     lines = f.readlines()
 
-#print(lines)
 end_line = len(lines)-1
 print(end_line)
 end_height = len(lines[0])-1
@@ -32,21 +31,15 @@ for i in range(len(lines)):
         coord = (h, i)
         moves = actions(coord)
         count = 0
-       # print(low_points)
-       # print(moves)
-       # print("y: ", i)
-        #print("x: ", h)
+ 
         for move in moves:
-           # print("Vertical Move:", move[1])
-            #print("Horizontal Move: ", move[0])
+
             if lines[i][h] < lines[i + move[1]][h + move[0]]:
                 count +=1
             if count == len(moves):
                 low_points.append(lines[i][h])
                 low_coord.append((h, i))
 
-#print(low_points)
-print(low_coord)
 total = 0
 for i in low_points:
     total += int(i)+1
@@ -62,7 +55,6 @@ def succ(coord):
     return next_coord
 
 def DFS(vertice, edges):
-    #print(memo)
     if vertice not in memo: 
         memo.append(vertice)
         new_edges = succ(vertice)
@@ -71,16 +63,13 @@ def DFS(vertice, edges):
     if edges == []: return memo   
     else:
         vertice = edges.pop(0)
-        #print(vertice, edges)
         return DFS(vertice, edges)
         
 bas = defaultdict(lambda: None)
 
-
 for coord in low_coord:
     memo = []
     bas[coord] = len(DFS(coord, []))
-
 
 for k, v in bas.items():
     print(k, ": ", v)
