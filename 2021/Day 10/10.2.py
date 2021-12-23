@@ -2,7 +2,8 @@
 ####PART 1##########################################
 ###############------Import data----------------####
 from collections import defaultdict
-with open("test_input_last.txt", "r", encoding="utf-8") as f:
+import math
+with open("test_input_close.txt", "r", encoding="utf-8") as f:
     lines = f.readlines()
 
 delimiters = [("(", ")"), ("[", "]"), ("{", "}"), ("<", ">") ]
@@ -57,7 +58,12 @@ for chunk in lines:
         completion_scores.append(delim_score)
 
 print(score)
-print(completion_scores.sort())
+completion_scores.sort()
+print(len(completion_scores))
+mid = math.ceil(len(completion_scores)/2)
+print(mid)
+print(completion_scores)
+print(completion_scores[mid-1])
 
 
             
