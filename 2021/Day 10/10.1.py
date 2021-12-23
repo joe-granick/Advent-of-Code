@@ -5,7 +5,6 @@ from collections import defaultdict
 with open("input.txt", "r", encoding="utf-8") as f:
     lines = f.readlines()
 
-#print(lines)
 delimiters = [("(", ")"), ("[", "]"), ("{", "}"), ("<", ">") ]
 opening = []
 closing = []
@@ -44,11 +43,6 @@ for chunk in lines:
     print("Delimeter used : ", closing_delim)
     if error == True:
         score += scores[closing_delim]
-
-    print("Score: ", score, "\n")
-
-    
-
 print(score)
 
 
