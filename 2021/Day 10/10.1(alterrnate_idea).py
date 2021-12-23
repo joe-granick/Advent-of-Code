@@ -17,41 +17,40 @@ for delim in delimiters:
     expected_delim[open_delim] = close_delim
 
 scores = {")" : 3, "]" : 57, "}" : 1197, ">" : 25137, "not_corrupt" : 0}
-#print(opening)
-#print(closing)
 
 def corrupt(chunk, opened = [], closed = [],  error = False):
     pass
     if not chunk or error == True:
-        closing_delimiter = closed.pop()
+        closing_delimiter = closed.pop(0)
         return [opened, closed,  error, closing_delimiter]
     else:
         if chunk[0] in opening:
             opener = chunk[0]
-            opened.append(opener)
+            opened.insert(0, opener)
         if chunk[0] in closing:
             close = chunk[0]
-            opener = opened.pop()
+            opener = opened.pop(0)
             if close != expected_delim[opener]:
                 error = True
             closed.insert(0, close)
         return corrupt(chunk[1:], opened, closed, error)
 
-
 score = 0
 for chunk in lines:
     opened , closed,  error, closing_delim = corrupt(chunk)
-    print("Chunk: ", chunk)
+    print("Chunk: ", chunk.strip())
     print("Opened: ", opened)
     print("Closed: ", closed)
     print("Delimiter wrong: ", error)
     print("Delimeter used : ", closing_delim)
-    #print("")
+    if error == True:
+        score += scores[closing_delim]
 
-    ##score += scores[corrupt(chunk)]
-    #print(score)
+    print("Score: ", score, "\n")
 
-#print(score)
+    
+
+print(score)
 
 
 
