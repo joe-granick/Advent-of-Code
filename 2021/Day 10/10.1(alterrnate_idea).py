@@ -2,7 +2,7 @@
 ####PART 1##########################################
 ###############------Import data----------------####
 from collections import defaultdict
-with open("test_input.txt", "r", encoding="utf-8") as f:
+with open("input.txt", "r", encoding="utf-8") as f:
     lines = f.readlines()
 
 #print(lines)
@@ -15,7 +15,6 @@ for delim in delimiters:
     opening.append(open_delim)
     closing.append(close_delim)
     expected_delim[open_delim] = close_delim
-
 scores = {")" : 3, "]" : 57, "}" : 1197, ">" : 25137, "not_corrupt" : 0}
 
 def corrupt(chunk, opened = [], closed = [],  error = False):
