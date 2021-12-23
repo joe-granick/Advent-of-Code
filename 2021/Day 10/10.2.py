@@ -39,18 +39,23 @@ score = 0
 completion_scores = []
 for chunk in lines:
     opened , closed,  error, closing_delim = corrupt(chunk, opened = [], closed = [],  error = False,)
-    print("Chunk: ", chunk)
+    print("Chunk: ", chunk.strip())
     delim_score = 0
     if error == True:
         score += syntax_scores[closing_delim]
+        print("Syntax error score: ", score)
+        print("Delim error: ", closing_delim)
     if error == False:
+        expected = []
         for delim in opened:
+            expected.append(expected_delim[delim])
             new_points = auto_complete_scores[expected_delim[delim]]
             new_delim = delim_score*5
             delim_score = (new_delim + new_points)
-            print(delim_score)
-        print(delim_score)
+        print("Autocomplete score: ", delim_score)
+        print("Missing delimiters: ", expected)
         completion_scores.append(delim_score)
+    print("\n")
 
 print("Syntax error score: ",score)
 completion_scores.sort()
