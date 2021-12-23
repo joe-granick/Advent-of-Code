@@ -17,7 +17,7 @@ for delim in delimiters:
     expected_delim[open_delim] = close_delim
 syntax_scores = {")" : 3, "]" : 57, "}" : 1197, ">" : 25137, "not_corrupt" : 0}
 auto_complete_scores = {")" : 1, "]" : 2, "}" : 3, ">" : 4, "not_corrupt" : 0}
-print(expected_delim)
+
 def corrupt(chunk, opened, closed,  error):
     pass
     if not chunk or error == True:
@@ -40,14 +40,9 @@ completion_scores = []
 for chunk in lines:
     opened , closed,  error, closing_delim = corrupt(chunk, opened = [], closed = [],  error = False,)
     print("Chunk: ", chunk)
-    print("Opened: ", opened)
-    #print("Closed: ", closed)
-    print("Delimiter wrong: ", error)
-    print("Delimeter used : ", closing_delim)
     delim_score = 0
     if error == True:
         score += syntax_scores[closing_delim]
-        
     if error == False:
         for delim in opened:
             new_points = auto_complete_scores[expected_delim[delim]]
@@ -57,13 +52,11 @@ for chunk in lines:
         print(delim_score)
         completion_scores.append(delim_score)
 
-print(score)
+print("Syntax error score: ",score)
 completion_scores.sort()
-print(len(completion_scores))
 mid = math.ceil(len(completion_scores)/2)
-print(mid)
 print(completion_scores)
-print(completion_scores[mid-1])
+print("Autocomplete score: ",completion_scores[mid-1])
 
 
             
