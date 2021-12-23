@@ -3,7 +3,7 @@
 ###############------Import data----------------####
 from collections import defaultdict
 import math
-with open("test_input_close.txt", "r", encoding="utf-8") as f:
+with open("input.txt", "r", encoding="utf-8") as f:
     lines = f.readlines()
 
 delimiters = [("(", ")"), ("[", "]"), ("{", "}"), ("<", ">") ]
