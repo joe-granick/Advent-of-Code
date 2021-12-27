@@ -3,7 +3,7 @@
 #########------Import data----------------####
 from collections import defaultdict
 from io import IncrementalNewlineDecoder
-with open("adv_test_input.txt", "r", encoding="utf-8") as f:
+with open("input.txt", "r", encoding="utf-8") as f:
     lines = f.readlines()
 octopi = []
 for line in lines:
