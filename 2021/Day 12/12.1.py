@@ -3,7 +3,7 @@
 #########------Import data----------------####
 from collections import defaultdict
 from io import IncrementalNewlineDecoder
-with open("large_test_input.txt", "r", encoding="utf-8") as f:
+with open("input.txt", "r", encoding="utf-8") as f:
     graph = f.readlines()
 for cave in graph:
     print(cave.strip())
