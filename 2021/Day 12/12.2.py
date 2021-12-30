@@ -3,7 +3,7 @@
 #########------Import data----------------####
 from collections import defaultdict
 from io import IncrementalNewlineDecoder
-with open("small_test_input.txt", "r", encoding="utf-8") as f:
+with open("medium_test_input.txt", "r", encoding="utf-8") as f:
     graph = f.readlines()
 for cave in graph:
     print(cave.strip())
@@ -17,7 +17,6 @@ end = []
 for cave in graph:
     states = cave.strip().split("-")
     cave_1, cave_2 = states[0], states[1]
-
 
     if cave_1 not in movements: movements[cave_1] = []
     if cave_2 not in movements: movements[cave_2] = []
@@ -35,20 +34,18 @@ for cave in graph:
     elif cave_2.islower() == True and cave_2 not in small_cave: 
         small_cave.append(cave_2)
 print(movements)
-#print(small_cave)
+print(small_cave)
 #print(large_cave)
 movements['end'] = []
 
 def actions(state, caves_visited):
     next_moves = []
-    small_twice = False
-    for cave in caves_visited:
-        if caves_visited[cave] == 2: small_twice = True
     for succession in movements[state]:
-        if small_twice:
-            if succession not in small_cave or caves_visited[succession] < 1:
-                next_moves.append(succession)
-        else:
+        if succession not in small_cave:
+            next_moves.append(succession)
+        elif max(caves_visited.values()) < 2:
+            next_moves.append(succession)
+        elif caves_visited[succession] < 1:
             next_moves.append(succession)
     return next_moves
 
@@ -65,21 +62,24 @@ def find_path(path = [], moves = [], small_caves_visited = {}):
         print(path)
         return [path]
     else:
+        #print(twice)
         first_move = moves.pop()
         state = path[-1]
+        #if first_move in small_cave:
+         #   caves_visited[state] += 1
         newly_visited = small_caves_visited.copy()
-        if state in small_cave:
-            newly_visited[state] += 1
-        #print("new visit: ", newly_visited)
-        #print("origin visit: ", small_caves_visited)
+        #if state in small_cave:
+         #   newly_visited[state] += 1 
+        if first_move in small_cave:
+            newly_visited[first_move] +=1 
         first_route = path + [first_move]
-        next_moves = actions(first_move, caves_visited = newly_visited)
-        return find_path(first_route, next_moves, newly_visited)+ find_path(path, moves, small_caves_visited)
+        next_moves = actions(first_move, newly_visited)
+        return find_path(first_route, next_moves, newly_visited) + find_path(path, moves, small_caves_visited)
 
 def valid_paths(paths):
     all_valid_paths = []
     for path in paths:
-        if path[-1] == 'end': all_valid_paths.append(path)
+        if path not in all_valid_paths and path[-1] == 'end': all_valid_paths.append(path)
     return all_valid_paths
 
     
@@ -91,4 +91,6 @@ count = 0
 for route in valid_paths(all_paths):
     print(route)
     count +=1
-    print(count)
+    #print(count)
+print(count)
+print(small_cave)
