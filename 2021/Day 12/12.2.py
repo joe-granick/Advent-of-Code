@@ -3,7 +3,7 @@
 #########------Import data----------------####
 from collections import defaultdict
 from io import IncrementalNewlineDecoder
-with open("medium_test_input.txt", "r", encoding="utf-8") as f:
+with open("input.txt", "r", encoding="utf-8") as f:
     graph = f.readlines()
 for cave in graph:
     print(cave.strip())
@@ -58,9 +58,11 @@ def find_path(path = [], moves = [], small_caves_visited = {}):
     if path == []:
         path.append('start')
         moves = actions('start', small_caves_visited)
-    if moves == []:
-        print(path)
+    if path[-1] == 'end':
         return [path]
+    elif moves == []:
+        #print(path)
+        return []
     else:
         #print(twice)
         first_move = moves.pop()
@@ -86,11 +88,6 @@ def valid_paths(paths):
 
 
 all_paths = find_path([],[],caves_visited)
-
-count = 0
-for route in valid_paths(all_paths):
-    print(route)
-    count +=1
-    #print(count)
-print(count)
-print(small_cave)
+print(len(all_paths))
+#paths = valid_paths(all_paths)
+#print(len(paths))
