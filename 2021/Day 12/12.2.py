@@ -91,3 +91,5 @@ all_paths = find_path([],[],caves_visited)
 print(len(all_paths))
 #paths = valid_paths(all_paths)
 #print(len(paths))
+for path in all_paths:
+    print(path)
