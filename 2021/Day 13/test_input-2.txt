@@ -19,7 +19,3 @@
 
 
 fold along y=7
-fold along x=5
-fold along x=2
-fold along y=2
-fold along x=1
