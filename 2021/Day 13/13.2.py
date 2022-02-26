@@ -31,10 +31,7 @@ new_folds = []
 for instruction in instructions:
     new_folds.append(instruction.split('='))
 
-
 print(new_folds)
-
-
 
 coords = []
 for point in points:
@@ -42,6 +39,7 @@ for point in points:
         tup = tuple(map(int, point.split(",")))
         coords.append(tup)
 
+#fold y up
 def y_fold(folds, coords):
     new_coords = []
     fold = int(folds[1])
@@ -52,6 +50,7 @@ def y_fold(folds, coords):
             new_coords.append(new_coord)
     return new_coords
 
+#fold x to the left
 def x_fold(folds, coords):
     new_coords = []
     fold = int(folds[1])
@@ -89,13 +88,8 @@ for y in range(y_max+1):
             row.append("-")
     rows.append(row)
 
-#print(rows)
-
 for row in rows:
-    print(''.join(row))
-# data = np.array(coords)
-# x, y = data.T
-# plt.scatter(x,y)
-# plt.show()
+    print(''.join(row)) #join eac cell into a string
+
 
 
