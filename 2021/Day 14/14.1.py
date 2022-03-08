@@ -2,7 +2,7 @@
 #########------Import data----------------####
 from collections import defaultdict
 from io import IncrementalNewlineDecoder
-with open("test_input.txt", "r", encoding="utf-8") as f:
+with open("input.txt", "r", encoding="utf-8") as f:
     lines = f.readlines()
 
 for line in lines:
@@ -13,7 +13,7 @@ print(lines[0])
 print(lines[2:])
 print(lines[2][3])
 
-initial_compound = lines.pop(0)
+initial_compound = lines.pop(0).strip()
 pair_insert = defaultdict(lambda: 'blank') #look up polymer to insert between pairs
 
 print(lines[2:])
@@ -35,7 +35,7 @@ for k in pair_insert.keys():
 print(pair_count)
 
 print(initial_compound)
-initial_compound = 'NNCB'
+#initial_compound = 'NNCB'
 for i in range(len(initial_compound)-1):
    # print(i, ": ", initial_compund[i])
     pair_count[initial_compound[i] + initial_compound[i+1]] += 1
@@ -47,7 +47,7 @@ print(expanded_pairs['NN'][0])
 print(expanded_pairs['NN'][1])
 print(pair_count['NN'])
 
-def polymerize(pair_counts, pair_expansion):
+def polymerize(pair_counts, pair_expansion, insert, letter_count):
     pass
     new_pair_counts = defaultdict(lambda: 0)
     for key, val in pair_counts.items():
@@ -55,24 +55,28 @@ def polymerize(pair_counts, pair_expansion):
             new_pair_1, new_pair_2 = pair_expansion[key][0], pair_expansion[key][1]
             new_pair_counts[new_pair_1] += val
             new_pair_counts[new_pair_2] += val
+            letter_count[insert[key]] += val
         #look up expansion for par represented in original compound
         #increment expansion pairs by multiple of original compund pair to create new compund
-    return new_pair_counts
+    return new_pair_counts,letter_count
 
 #calculate plymerization for i number of steps
-i = 0
-while i < 1:
-    pair_count = polymerize(pair_count, expanded_pairs) 
-    i+=1
-print(pair_count)
-#count unique letters
 letter_count = defaultdict(lambda: 0)
-for k, v in pair_count.items():
-    letter_count[k[0]] += v
-    letter_count[k[1]] += v
+for i in initial_compound:
+    letter_count[i] += 1
 print(letter_count)
 
-
+i = 0
+while i < 10:
+    pair_count, letter_count = polymerize(pair_count, expanded_pairs, pair_insert, letter_count) 
+    i+=1
+print(pair_count, letter_count)
+#count unique letters
+letter_max = max(letter_count.keys(), key=(lambda k: letter_count[k]))
+letter_min = min(letter_count.keys(), key=(lambda k: letter_count[k]))
+print(letter_count[letter_max])
+print(letter_count[letter_min])
+print(letter_count[letter_max] - letter_count[letter_min])
 # initial_compound = 'NBCCNBBBCBHCB'
 # test_pair = defaultdict(lambda: 0)
 # print(initial_compound)
